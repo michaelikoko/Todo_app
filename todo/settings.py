@@ -145,9 +145,9 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 #The URL to use when referring to static files (where they will be served from)
 STATIC_URL = '/static/'
 
-<<<<<<< HEAD
+
 #Simplified static file serving
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-=======
+
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
->>>>>>> f3c38716105d342d0d9ccc263f780a29b069da00
+
