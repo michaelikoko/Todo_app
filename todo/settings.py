@@ -33,7 +33,7 @@ SESSION_COOKIE_SECURE = True
 
 SECURE_SSL_REDIRECT = True
 
-ALLOWED_HOSTS = ['salty-reef-96240.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['mitodolist.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
