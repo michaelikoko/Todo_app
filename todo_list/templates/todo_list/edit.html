@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Edit{% endblock %}
+
+{% block nav_items %}
+    <form class="d-flex me-2" method='get' action = '{% url "todo_list:search" %}'>
+        <input class="form-control me-2" type="search" placeholder="Search tasks" aria-label="Search" name="search">
+        <button class="btn btn-outline-info" type="submit">Search</button>
+    </form>
+
+    <li class="nav-item dropdown me-2">
+        <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">{{user.first_name}}</a>
+        <ul class="dropdown-menu" aria-labelledby="dropdown01">
+        <li><a class="dropdown-item" href="{% url 'todo_list:edit_details' user.id %}">Edit details</a></li>
+        <li><a class="dropdown-item" href="{% url 'todo_list:change_password' user.id %}">Change password</a></li>
+        <li><a class="dropdown-item" href="{% url 'logout' %}?next={% url 'todo_list:landing_page' %}">Logout</a></li>
+        </ul>
+    </li>
+{% endblock %}
+
+{% block content %}
+
+    <div class="nav-scroller bg-body shadow-sm">
+        <nav class="nav nav-underline" aria-label="Secondary navigation">
+        <a class="nav-link active" aria-current="page" href="{% url 'todo_list:dashboard' %}">View Tasks<span class="badge bg-info text-danger rounded-pill align-text-bottom">{{task_count}}</span></a>
+        <a class="nav-link" href="{% url 'todo_list:add_task' %}">Add task</a>
+        </nav>
+    </div>
+
+    <div class="container">
+        <h2>Edit Details</h2>
+        <div class="form-group">
+            <form method="post" action = ''>
+               {% csrf_token %}
+                <p>
+                    <label for="id_username">Username:</label>
+                    <input type="text" name="username" value="{{user.username}}" class="form-control" maxlength="150" required id="id_username">
+                    <span class="helptext">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</span>
+                </p>
+  
+                <p>
+                    <label for="id_email">Email address:</label>
+                    <input type="email" name="email" value="{{user.email}}" class="form-control" maxlength="254" id="id_email">
+                </p>
+
+                <p>
+                    <label for="id_first_name">First name:</label>
+                    <input type="text" name="first_name" value="{{user.first_name}}" class="form-control" maxlength="150" id="id_first_name">
+                </p>
+
+                <p>
+                    <label for="id_last_name">Last name:</label>
+                    <input type="text" name="last_name" value="{{user.last_name}}" class="form-control" maxlength="150" id="id_last_name"> 
+                </p>
+
+                <input type="submit" value="Edit" class="btn btn-outline-dark">
+                <input type="reset" value="Reset" class="btn btn-outline-secondary">
+            </form>   
+        </div>
+      
+    </div>
+{% endblock %}

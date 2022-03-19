@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% load static %}
+
+{% block nav_items %}
+    <form class="d-flex me-2" method='get' action = '{% url "todo_list:search" %}'>
+        <input class="form-control me-2" type="search" placeholder="Search tasks" aria-label="Search" name="search">
+        <button class="btn btn-outline-info" type="submit">Search</button>
+    </form>
+
+    <li class="nav-item dropdown me-2">
+        <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">{{user.first_name}}</a>
+        <ul class="dropdown-menu" aria-labelledby="dropdown01">
+        <li><a class="dropdown-item" href="{% url 'todo_list:edit_details' user.id %}">Edit details</a></li>
+        <li><a class="dropdown-item" href="{% url 'todo_list:change_password' user.id%}">Change password</a></li>
+        <li><a class="dropdown-item" href="{% url 'logout' %}?next={% url 'todo_list:landing_page' %}">Logout</a></li>
+        </ul>
+    </li>
+{% endblock %}
+
+{% block content %}
+
+    <link rel="stylesheet" href="{% static 'todo_list/off_canvas.css' %}">
+
+    <div class="nav-scroller bg-body shadow-sm">
+        <nav class="nav nav-underline" aria-label="Secondary navigation">
+        <a class="nav-link active" aria-current="page" href="{% url 'todo_list:dashboard' %}">View Tasks<span class="badge bg-info text-danger rounded-pill align-text-bottom">{{task_count}}</span></a>
+        <a class="nav-link" href="{% url 'todo_list:add_task' %}">Add task</a>
+        </nav>
+    </div>
+
+    {% if messages %}
+        <div class="container">
+            <ul class="messages">
+                {% for message in messages %}
+    =            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>{{message}}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <div class="container">
+        <div class="list-group">
+            <h1>Tasks</h1>
+            {% if task_list %}
+            {% for task in task_list %}
+                {% if task.state %}
+                    <div class="list-group-item list-group-item-action list-group-item-info">
+                        <div class="d-flex flex-row justify-content-between">
+                            <del>{{task.description}}</del>
+                            <a href="{% url 'todo_list:delete_task' task.id %}">
+                                <button type="button" class="btn-close"></button>
+                            </a>
+                        </div>
+                    </div>
+                {% else %}
+                    <form method="post" action="" class="list-group-item list-group-item-action list-group-item-info">
+                        {% csrf_token %}
+                        <div class="d-flex flex-row justify-content-between">
+                            <div>
+                                <input type="checkbox" name="state" id="done" onclick="this.form.submit()"> <label for="done" class="form-label">{{task.description}}</label>
+                            </div>
+                            <a href="{% url 'todo_list:delete_task' task.id %}">
+                                <button type="button" class="btn-close"></button>
+                            </a>
+                        </div>
+                        <input type="hidden" name="id" value="{{task.id}}">            
+                    </form>
+                {% endif %}
+            {% endfor %}
+            {% else %}
+            <h4>You currently do no have any tasks.</h4>
+            {% endif %}
+        </div>
+    </div>
+
+
+{% endblock %}

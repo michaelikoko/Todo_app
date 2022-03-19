@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Login Page{% endblock %}
+
+{% block nav_items %}
+<li class="nav-item">
+    <a href="{% url 'todo_list:registration_page' %}" class="nav-link">
+        <button class="btn btn-outline-info me-2" type="button">Register</button>
+    </a>
+</li>
+{% endblock%}
+
+{% block content %}
+<div class="container-fluid">
+    
+    {% if form.non_field_errors %}
+    <ul class="messages">
+        {% for error in form.non_field_errors %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>{{error}}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{message}}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+
+    <div class="text-center mt-2">
+        <div class="form-signin">
+            <form action="" method="post">
+                {% csrf_token %}
+                <img class="mb-4" src= "{% static 'todo_list/media/logo.svg' %}" alt="" width="72" height="57">
+                <h1 class="h3 mb-3 fw-normal">Login</h1>
+
+
+                <div class="d-flex flex-row justify-content-center mb-4">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="Username" name="username"  style="width: 15rem;">
+                        <label for="floatingInput">Username</label>
+                    </div>
+                </div>
+
+
+                <div class="d-flex flex-row justify-content-center mb-4">
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password"  style="width: 15rem;">
+                        <label for="floatingPassword">Password</label>
+                    </div>
+                </div>
+
+
+                <div class="checkbox mb-3">
+                    <label>
+                        <input type="checkbox" onclick="showPassword()"> Show Password
+                    </label>
+                </div>
+                <!--<div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" value="remember-me" name="remember me"> Remember me
+                </label>
+                </div>-->
+                <div class="d-flex flex-row justify-content-center">
+                    <button class=" btn btn-lg  btn-outline-dark" type="submit" style="width: 15rem;">Login</button>
+                </div>
+                <p class="mt-2">Don't have an account? <a href="{% url 'todo_list:registration_page' %}">Sign up</a></p>
+                <input type="hidden" name="next" value="{{next}}">
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showPassword() {
+        var x = document.getElementById("floatingPassword");
+        if (x.type === 'password') {
+            x.type = 'text';
+        } else {
+            x.type = 'password';
+        }
+    }
+</script>
+
+{% endblock %}

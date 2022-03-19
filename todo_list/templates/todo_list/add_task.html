@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Add Task{% endblock %}
+
+{% block nav_items %}
+<form class="d-flex me-2" method='get' action = '{% url "todo_list:search" %}'>
+    <input class="form-control me-2" type="search" placeholder="Search tasks" aria-label="Search" name="search">
+    <button class="btn btn-outline-info" type="submit">Search</button>
+</form>
+
+    <li class="nav-item dropdown me-2">
+        <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">{{user.first_name}}</a>
+        <ul class="dropdown-menu" aria-labelledby="dropdown01">
+        <li><a class="dropdown-item" href="{% url 'todo_list:edit_details' user.id %}">Edit details</a></li>
+        <li><a class="dropdown-item" href="{% url 'todo_list:change_password' user.id %}">Change password</a></li>
+        <li><a class="dropdown-item" href="{% url 'logout' %}?next={% url 'todo_list:landing_page' %}">Logout</a></li>
+        </ul>
+    </li>
+{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'todo_list/off_canvas.css' %}">
+
+
+<div class="nav-scroller bg-body shadow-sm">
+    <nav class="nav nav-underline" aria-label="Secondary navigation">
+      <a class="nav-link" href="{% url 'todo_list:dashboard' %}">View Tasks<span class="badge bg-info text-danger rounded-pill align-text-bottom">{{task_count}}</span></a>
+      <a class="nav-link active" aria-current="page" href="{% url 'todo_list:add_task' %}">Add task</a>
+    </nav>
+</div>
+
+<div class="container">
+    <form action="" method="post" class="mt-5">
+        {% csrf_token %}           
+        <label for="floatingInput" ><strong>Input task:</strong></label>
+        <input type="text" name="description" class="form-control mb-4" maxlength="200" required id="floatingInput" placeholder="">
+        <input type="submit" value="Add" class="btn btn-outline-dark">
+        <input type="reset" value="Reset" class="btn btn-outline-secondary">
+    </form>
+</div>
+{% endblock %}

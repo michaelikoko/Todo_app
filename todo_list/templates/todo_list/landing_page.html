@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Todo Home Page{% endblock %}
+
+{% block nav_items%}
+
+            <li class="nav-item me-2" >
+                <a class="nav-link" href="{% url 'login' %}?next={% url 'todo_list:dashboard' %}">Login</a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'todo_list:registration_page' %}" class="nav-link">
+                    <button class="btn btn-outline-info me-2" type="button">Register</button>
+                </a>
+            </li>
+
+{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'todo_list/landing_page.css' %}">
+    <div class="container marketing mt-5">
+        <div class="row featurette">
+            <div class="col-md-7 mt-4">
+                <h2 class="featurette-heading"><strong>TODO LIST</strong></h2>
+                <p class="lead ">
+                    Manage your tasks efficiently, and improve your productivity.
+                </p>
+                <a href="{% url 'login' %}?next={% url 'todo_list:dashboard' %}">
+                    <button class="btn btn-outline-dark btn-lg mt-4" type="button"><strong>Get started</strong></button>
+                </a>
+            </div>
+            <div class="col-md-5 mt-4">
+              <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" src="{% static 'todo_list/media/checkbox.jpg' %}" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em"></text></img>
+      
+            </div>
+        </div>      
+    </div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Register{% endblock %}
+{% block nav_items%}
+<li class="nav-item me-2" >
+    <a class="nav-link" href="{% url 'login' %}?next={% url 'todo_list:dashboard' %}">Login</a>
+</li>
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h2>Register</h2>
+    <div class="form-group">
+        <form method="post" action = ''>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Register" class="btn btn-info">
+            <input type="reset" value="Reset" class="btn btn-secondary">
+        </form>  
+    </div>
+</div>
+
+{% endblock %}
