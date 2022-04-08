@@ -10,12 +10,12 @@
         <button class="btn btn-outline-info" type="submit">Search</button>
     </form>
 
-    <li class="nav-item dropdown me-2">
+    <li class="nav-item dropdown" style="margin-right: 90px;">
         <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">{{user.first_name}}</a>
-        <ul class="dropdown-menu" aria-labelledby="dropdown01">
-        <li><a class="dropdown-item" href="{% url 'todo_list:edit_details' user.id %}">Edit details</a></li>
-        <li><a class="dropdown-item" href="{% url 'todo_list:change_password' user.id%}">Change password</a></li>
-        <li><a class="dropdown-item" href="{% url 'logout' %}?next={% url 'todo_list:landing_page' %}">Logout</a></li>
+        <ul class="dropdown-menu " aria-labelledby="dropdown01">
+            <li><a class="dropdown-item" href="{% url 'todo_list:edit_details' user.id %}">Edit details</a></li>
+            <li><a class="dropdown-item" href="{% url 'todo_list:change_password' user.id%}">Change password</a></li>
+            <li><a class="dropdown-item" href="{% url 'logout' %}?next={% url 'todo_list:landing_page' %}">Logout</a></li>
         </ul>
     </li>
 {% endblock %}
@@ -35,7 +35,7 @@
         <div class="container">
             <ul class="messages">
                 {% for message in messages %}
-    =            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <strong>{{message}}</strong>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
@@ -44,7 +44,7 @@
         </div>
     {% endif %}
 
-    <div class="container">
+    <div class="container mt-5">
         <div class="list-group">
             <h1>Tasks</h1>
             {% if task_list %}
