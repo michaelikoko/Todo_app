@@ -166,3 +166,6 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_USE_SSL = False
+
+from django.urls import reverse_lazy
+LOGIN_REDIRECT_URL  = reverse_lazy("todo_list:dashboard")
